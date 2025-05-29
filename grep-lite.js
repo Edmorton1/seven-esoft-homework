@@ -1,8 +1,10 @@
+// node grep-lite.js --file=text.txt --search=hello
 const fs = require('fs')
 
 const rawArgs = process.argv
 
 const checkArgs = rawArgs.filter(e => e.includes('--file') || e.includes('--search'))
+
 if (checkArgs.length < 2) {
   console.log('[ERROR]: Usage: node grep-lite.js --file=<path> --search=<string>')
   process.exit(1)
@@ -10,13 +12,19 @@ if (checkArgs.length < 2) {
 
 const args = Object.assign({}, ...rawArgs.slice(2).map(e => e.split('--')[1].split('=')).map(e => ({ [e[0]]: e[1] })))
 
-console.log(args.file)
+try {
+  
+} catch {
+
+}
+
+console.log(args.ignore_case)
 
 try {
-  const file = fs.openSync(args.file)
+  fs.openSync(args.file)
 } catch(err) {
   if (err.errno === -4058) {
-    console.log(`[ERROR]: `)
+    console.log(`[ERROR]: File not found`)
     process.exit(1)
   }
 }
